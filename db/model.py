@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Boolean
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, Text, DECIMAL
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import sessionmaker
 import os
@@ -26,6 +26,20 @@ class SavedTotals(Base):
     name = Column(String, nullable=False, unique=True)
     total_cost = Column(Integer, nullable=False)
     visible = Column(Boolean, default=True)
+
+
+class CalkingProcess(Base):
+    __tablename__ = 'calking_process'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    tg_id = Column(Integer, nullable=False)
+    description = Column(Text, nullable=False, unique=False)
+    under_sockets = Column(DECIMAL, nullable=True)
+    calc_cable = Column(DECIMAL, nullable=True)
+    strobs = Column(DECIMAL, nullable=True)
+    shields = Column(DECIMAL, nullable=True)
+    junction_boxes = Column(DECIMAL, nullable=True)
+    clear_cable = Column(DECIMAL, nullable=True)
+    total_cost = Column(DECIMAL, nullable=True)
 
 
 Session = sessionmaker(bind=engine)

@@ -1,5 +1,7 @@
 import asyncio
 import logging
+
+import aiogram.exceptions
 from aiogram import Bot
 from aiogram.dispatcher.dispatcher import Dispatcher
 from config_reader import settings
@@ -32,6 +34,10 @@ async def shutdown():
 async def main():
     dp.include_routers(basic.router, user.router, admin.router)
     try:
+        await bot.delete_webhook()
+        await dp.start_polling(bot, skip_updates=True)
+    except aiogram.exceptions.TelegramNetworkError as e:
+        logging.error(e)
         await bot.delete_webhook()
         await dp.start_polling(bot, skip_updates=True)
     finally:
