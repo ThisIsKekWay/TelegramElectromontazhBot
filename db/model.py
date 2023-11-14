@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Boolean, Text, DECIMAL
+from sqlalchemy import create_engine, Column, Integer, String, Text, Numeric, Boolean
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import sessionmaker
 import os
@@ -15,8 +15,7 @@ class Materials(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False, unique=True)
     category = Column(String, nullable=False)
-    price_for_meter = Column(Integer, nullable=False)
-    visible = Column(Boolean, default=True)
+    price_or_coeff = Column(Numeric(precision=9, scale=2), nullable=False)
 
 
 class SavedTotals(Base):
@@ -24,22 +23,9 @@ class SavedTotals(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     tg_id = Column(Integer, nullable=False)
     name = Column(String, nullable=False, unique=True)
-    total_cost = Column(Integer, nullable=False)
-    visible = Column(Boolean, default=True)
-
-
-class CalkingProcess(Base):
-    __tablename__ = 'calking_process'
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    tg_id = Column(Integer, nullable=False)
-    description = Column(Text, nullable=False, unique=False)
-    under_sockets = Column(DECIMAL, nullable=True)
-    calc_cable = Column(DECIMAL, nullable=True)
-    strobs = Column(DECIMAL, nullable=True)
-    shields = Column(DECIMAL, nullable=True)
-    junction_boxes = Column(DECIMAL, nullable=True)
-    clear_cable = Column(DECIMAL, nullable=True)
-    total_cost = Column(DECIMAL, nullable=True)
+    total_cost = Column(Numeric(precision=9, scale=2), nullable=False)
+    description = Column(Text, nullable=True)
+    final = Column(Boolean, nullable=False, default=False)
 
 
 Session = sessionmaker(bind=engine)

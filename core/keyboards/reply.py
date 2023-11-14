@@ -1,12 +1,19 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
+# --- Общие кнопки ---
+
 cancel = KeyboardButton(text='Назад')
 k_cancel = ReplyKeyboardMarkup(keyboard=[[cancel]], resize_keyboard=True, one_time_keyboard=True)
 
+menu = KeyboardButton(text='В меню')
+k_menu = ReplyKeyboardMarkup(keyboard=[[menu]], resize_keyboard=True, one_time_keyboard=True)
+
+
 # --- Main Menu ---
 calculating = KeyboardButton(text='Расчет работ')
-saved_calculating = KeyboardButton(text='Сохраненные расчеты')
-main_menu = ReplyKeyboardMarkup(keyboard=[[calculating, saved_calculating, cancel]],
+saved_calculating = KeyboardButton(text='Сохраненное')
+download_price = KeyboardButton(text='Прайс')
+main_menu = ReplyKeyboardMarkup(keyboard=[[calculating, saved_calculating, download_price]],
                                 resize_keyboard=True,
                                 one_time_keyboard=True)
 
@@ -29,16 +36,18 @@ calc_menu = ReplyKeyboardMarkup(keyboard=calc_kb,
                                 row_length=3)
 
 # --- Saved Menu ---
-all_saved = KeyboardButton(text='Список сохраненных расчетов')
-purge = KeyboardButton(text='Очистить')
-saved_menu = ReplyKeyboardMarkup(keyboard=[[all_saved, purge], [cancel]],
+saved_menu = ReplyKeyboardMarkup(keyboard=[[cancel]],
                                  resize_keyboard=True,
                                  one_time_keyboard=True)
 
 
 # --- Admin Menu ---
 set_new_materials = KeyboardButton(text='Добавить материалы')
-materials_lookup = KeyboardButton(text='Просмотр материалов')
-admin_menu = ReplyKeyboardMarkup(keyboard=[[set_new_materials, materials_lookup, calculating, cancel]],
+materials_lookup = KeyboardButton(text='Материалы')
+load_file = KeyboardButton(text='Прайс')
+admin_menu = ReplyKeyboardMarkup(keyboard=[[set_new_materials, materials_lookup, load_file], [calculating]],
                                  resize_keyboard=True,
                                  one_time_keyboard=True)
+
+
+
