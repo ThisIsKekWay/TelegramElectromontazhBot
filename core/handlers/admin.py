@@ -1,5 +1,5 @@
 import os.path
-
+import openpyxl
 from aiogram import types, Bot
 from aiogram import Router, F
 from aiogram.filters import StateFilter
@@ -78,3 +78,7 @@ async def download_file(msg: types.Message, state: FSMContext, bot: Bot):
     else:
         await bot.download_file(file_path, 'price.xlsx')
         await msg.answer('Файл добавлен')
+    await msg.answer('Обновление данных...')
+
+    wb = openpyxl.load_workbook('price.xlsx')
+    sheet = wb.active

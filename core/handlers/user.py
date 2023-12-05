@@ -338,7 +338,7 @@ async def cable_lines(msg: types.Message, state: FSMContext):
     await msg.answer('Выберите способ прокладки кабеля\n', reply_markup=builder.as_markup())
 
 
-@user_router.callback_query(F.data.in_([i.name for i in read_mat(category='Кабель')]),
+@user_router.callback_query(F.data.in_(['Пучок', 'Отдельный', 'Гофра', 'Канал']),
                             StateFilter(CalcMenu.calc_cable_type))
 async def cable_lines2(call: types.CallbackQuery, state: FSMContext):
     state_dict = {
